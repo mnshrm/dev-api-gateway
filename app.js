@@ -12,6 +12,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 const app = express();
 
