@@ -35,6 +35,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.use("/restartServer", (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    msg: "Server started again",
+  });
+});
+
 //middleware to authenticate user
 
 app.use("/checkIfAuthenticated", isAuthenticated, (req, res, next) => {
