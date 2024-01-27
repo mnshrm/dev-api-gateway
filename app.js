@@ -1,4 +1,6 @@
 const path = require("path");
+const { exec } = require("child_process");
+const cron = require("node-cron");
 
 const cadetRouter = require("./routes/infoRoutes.js");
 const { isAuthenticated } = require("./middlewares/authMiddleware.js");
@@ -15,6 +17,10 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 const app = express();
+
+cron.schedule("0 */30 * * * *", async () => {
+  await fetch(process.env.EVENT_API + "event");
+});
 
 app.use(
   cors({
