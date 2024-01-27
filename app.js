@@ -15,6 +15,15 @@ const dotenv = require("dotenv");
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow requests from localhost:5173
+    methods: "GET,POST,PUT,PATCH,DELETE", // Allow these HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+    credentials: true, // Allow cookies to be sent with requests
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
