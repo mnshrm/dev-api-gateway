@@ -17,13 +17,9 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 const app = express();
-
-app.use("/restartServer", (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    message: "Server restarted",
-  });
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -34,9 +30,12 @@ app.use(
   })
 );
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cookieParser());
+app.use("/restartServer", (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    message: "Server restarted",
+  });
+});
 
 //middleware to authenticate user
 
