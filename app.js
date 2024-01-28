@@ -18,8 +18,11 @@ const cors = require("cors");
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 const app = express();
 
-cron.schedule("0 */30 * * * *", async () => {
-  await fetch(process.env.EVENT_API + "event");
+app.use("/restartServer", (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    message: "Server restarted",
+  });
 });
 
 app.use(
@@ -34,13 +37,6 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-app.use("/restartServer", (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    msg: "Server started again",
-  });
-});
 
 //middleware to authenticate user
 
