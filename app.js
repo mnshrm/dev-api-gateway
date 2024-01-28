@@ -30,6 +30,11 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", process.env.FRONTEND);
+  next();
+});
+
 app.use("/restartServer", (req, res, next) => {
   res.status(200).json({
     success: true,
