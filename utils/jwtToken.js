@@ -12,7 +12,7 @@ const sendToken = (cdt, statusCode, res) => {
 
   res
     .status(statusCode)
-    .cookie("token", token, { ...options, secure })
+    .cookie("token", token, { ...options })
     .json({
       success: true,
       token,
