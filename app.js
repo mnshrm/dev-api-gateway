@@ -17,23 +17,19 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config({ path: path.join(__dirname, "config", ".env") });
 const app = express();
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(
   cors({
-    origin: process.env.FRONTEND, // Allow requests from localhost:5173
+    origin: process.env.FRONTEND,
     methods: "GET,POST,PUT,PATCH,DELETE", // Allow these HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
     credentials: true, // Allow cookies to be sent with requests
   })
 );
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.FRONTEND);
-  next();
-});
 
 app.use("/restartServer", (req, res, next) => {
   res.status(200).json({
