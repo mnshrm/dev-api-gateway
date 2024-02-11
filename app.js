@@ -51,7 +51,7 @@ app.use("/checkIfAuthenticated", isAuthenticated, (req, res, next) => {
 app.use("/auth", authRouter);
 
 // Check if user is authenticated before executing following routes
-app.use(isAuthenticated);
+// app.use(isAuthenticated);
 
 // Event routes
 app.use("/event", eventRouter);
