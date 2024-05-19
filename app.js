@@ -24,11 +24,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.get(
+app.use(
   "/.well-known/pki-validation/8A4B23EB0208E1C860B2808FED65A5F8.txt",
   (req, res) => {
-    res.sendFile(
-      path.join(__dirname, "app.js 8A4B23EB0208E1C860B2808FED65A5F8.txt")
+    return res.sendFile(
+      path.join(__dirname, "8A4B23EB0208E1C860B2808FED65A5F8.txt")
     );
   }
 );
