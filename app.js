@@ -25,15 +25,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(
-  "/.well-known/pki-validation/8A4B23EB0208E1C860B2808FED65A5F8.txt",
-  (req, res) => {
-    return res.sendFile(
-      path.join(__dirname, "8A4B23EB0208E1C860B2808FED65A5F8.txt")
-    );
-  }
-);
-
-app.use(
   cors({
     origin: process.env.FRONTEND,
     credentials: true,
@@ -79,13 +70,11 @@ app.use("/me", profileRouter);
 // Error middleware
 app.use(errorMiddleware);
 
-// const sslServer = https.createServer(
-//   {
-//     key: process.env.my_key,
-//     cert: process.env.my_cert,
-//     // key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
-//     // cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
-//   },
-//   app
-// );
-module.exports = app;
+const sslServer = https.createServer(
+  {
+    key: process.env.my_key,
+    cert: process.env.my_cert,
+  },
+  app
+);
+module.exports = sslServer;
