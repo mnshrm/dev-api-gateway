@@ -1,6 +1,8 @@
-const path = require("path");
 const { exec } = require("child_process");
 const cron = require("node-cron");
+const https = require("https");
+const fs = require("fs");
+const path = require("path");
 
 const cadetRouter = require("./routes/infoRoutes.js");
 const { isAuthenticated } = require("./middlewares/authMiddleware.js");
@@ -21,6 +23,15 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.get(
+  "/.well-known/pki-validation/8A4B23EB0208E1C860B2808FED65A5F8.txt",
+  (req, res) => {
+    res.sendFile(
+      path.join(__dirname, "app.js 8A4B23EB0208E1C860B2808FED65A5F8.txt")
+    );
+  }
+);
 
 app.use(
   cors({
@@ -68,4 +79,13 @@ app.use("/me", profileRouter);
 // Error middleware
 app.use(errorMiddleware);
 
+// const sslServer = https.createServer(
+//   {
+//     key: process.env.my_key,
+//     cert: process.env.my_cert,
+//     // key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+//     // cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+//   },
+//   app
+// );
 module.exports = app;
